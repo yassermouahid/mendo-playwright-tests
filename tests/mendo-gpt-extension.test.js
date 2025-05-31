@@ -1,6 +1,7 @@
 const { test, expect, chromium } = require('@playwright/test');
 const locators = require('../locators/mendo-home-page');
-const expectedData = require('../expected_data/mendo-home-page');
+const expected_data = require('../expected_data/mendo-home-page');
+const input_data = require('../input_data/mendo-home-page');
 const path = require('path');
 
 const EXTENSION_PATH = path.resolve(
@@ -8,6 +9,12 @@ const EXTENSION_PATH = path.resolve(
 );
 
 test.describe('Mendo Home Page', () => {
+  test.afterEach(async ({ page }, testInfo) => {
+    if (testInfo.status !== testInfo.expectedStatus) {
+      console.log(`❌ Test failed: ${testInfo.title}`);
+    }
+  });
+
   test('should display welcome text and buttons correctly', async () => {
     const context = await chromium.launchPersistentContext('', {
       headless: false,
@@ -18,30 +25,42 @@ test.describe('Mendo Home Page', () => {
     });
 
     const page = await context.newPage();
-    await page.goto('chrome-extension://ldggnhcfajoadamikfgcmalkgmphokcb/frame.html');
-    console.log('✓ Navigated to popup');
 
-    const iframeElement = await page.waitForSelector(locators.iframe_selector);
-    const frame = await iframeElement.contentFrame();
-    expect(frame).not.toBeNull();
+    try {
+      await page.goto('chrome-extension://ldggnhcfajoadamikfgcmalkgmphokcb/frame.html');
+      console.log('✓ Navigated to popup');
 
-    const welcomeText = frame.locator(`text=${expectedData.welcome_message}`);
-    await expect(welcomeText).toBeVisible();
-    console.log('✓ Home page text is visible');
+      const iframeElement = await page.waitForSelector(locators.iframe_selector, { timeout: 10000 });
+      const frame = await iframeElement.contentFrame();
+      expect(frame).not.toBeNull();
 
-    const buttons = frame.locator(locators.generic_buttons);
+      const welcomeText = frame.locator(`text=${expected_data.welcome_message}`);
+      await expect(welcomeText).toBeVisible();
+      console.log('✓ Home page text is visible');
 
-    const firstButton = buttons.nth(0);
-    await expect(firstButton).toBeVisible({ timeout: 15000 });
-    await expect(firstButton).toContainText(expectedData.first_button_label);
-    console.log('✓ First button contains expected text');
+      const buttons = frame.locator(locators.generic_buttons);
 
-    const secondButton = buttons.nth(1);
-    await expect(secondButton).toBeVisible();
-    await expect(secondButton).toContainText(expectedData.second_button_label);
-    console.log('✓ Second button contains expected text');
+      const firstButton = buttons.nth(0);
+      await expect(firstButton).toBeVisible({ timeout: 15000 });
+      await expect(firstButton).toContainText(expected_data.first_button_label);
+      console.log('✓ First button contains expected text');
 
-    await context.close();
-    console.log('✓ Browser closed');
+      const secondButton = buttons.nth(1);
+      await expect(secondButton).toBeVisible();
+      await expect(secondButton).toContainText(expected_data.second_button_label);
+      console.log('✓ Second button contains expected text');
+
+      await firstButton.click();
+      console.log('✓ Clicked First Login button');
+
+      const emailInput = frame.locator(locators.email_input);
+      await emailInput.fill(input_data.user_email);
+    } catch (error) {
+      console.error('Test error:', error);
+      throw error; 
+    } finally {
+      await context.close();
+      console.log('✓ Browser closed');
+    }
   });
 });
