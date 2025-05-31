@@ -1,0 +1,133 @@
+<!-- intro.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termine ton introduction Mendo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex-grow: 1;
+    }
+    
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      color: #5c6ac4;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+    
+    p {
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    
+    .progress-container {
+      width: 100%;
+      height: 15px;
+      background-color: #eee;
+      border-radius: 10px;
+      margin: 15px 0;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      width: 50%; /* Can be dynamic */
+      background-color: #5c6ac4;
+      border-radius: 10px;
+    }
+    
+    .benefits {
+      text-align: left;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    
+    .btn {
+      background-color: #5c6ac4;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 10px;
+      text-decoration: none;
+    }
+    
+    .btn:hover {
+      background-color: #4c59b3;
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: #5c6ac4;
+      border: 1px solid #5c6ac4;
+      margin-top: 10px;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #f0f2ff;
+    }
+    
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="assets/mendo_full_logo.png" alt="Mendo Logo" class="logo">
+    <h1>Fais ton intro 🎬</h1>
+    <p>
+      Tu n'as pas encore terminé ton introduction sur Mendo. C'est rapide et ça débloque tous les cours !
+    </p>
+    
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+    <p>Tu as complété 50% de l'introduction</p>
+    
+    <div class="benefits">
+      <ul>
+        <li>Seulement 2 minutes restantes</li>
+        <li>Débloquer l'accès à tous les cours</li>
+        <li>Personnaliser ton expérience d'apprentissage</li>
+      </ul>
+    </div>
+    
+    <a href="https://app.mendo.ai/intro" class="btn" id="continueButton">Continuer l'intro</a>
+    <button class="btn btn-secondary" id="laterButton">Plus tard</button>
+  </div>
+  
+  <div class="footer">
+    Mendo - L'extension qui t'aide à apprendre
+  </div>
+
+
+  <script src="intro-popup.js"></script>
+</body>
+</html>

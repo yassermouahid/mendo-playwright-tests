@@ -4,9 +4,8 @@ const expected_data = require('../expected_data/mendo-home-page');
 const input_data = require('../input_data/mendo-home-page');
 const path = require('path');
 
-const EXTENSION_PATH = path.resolve(
-  '/Users/yasser/Library/Application Support/Google/Chrome/Profile 5/Extensions/ldggnhcfajoadamikfgcmalkgmphokcb/1.4.30_0'
-);
+const EXTENSION_PATH = path.resolve(process.cwd(), 'mendo_extension');
+
 
 test.describe('Mendo Home Page', () => {
   test.afterEach(async ({ page }, testInfo) => {

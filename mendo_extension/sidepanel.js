@@ -1,0 +1,1 @@
+window.innerHeight=300,window.innerWidth=200;

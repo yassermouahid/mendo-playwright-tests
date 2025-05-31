@@ -1,0 +1,49 @@
+{
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "css": ["styles.css"],
+      "js": ["content.js"],
+      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"]
+    }
+  ],
+  "description": "A plugin to connect ChatGPT to Mendo",
+  "host_permissions": ["*://chat.openai.com/*", "*://chatgpt.com/*"],
+  "icons": {
+    "128": "assets/logo.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzUIq13QELKvbF1X/XuMJvLTLXPF47v45ZgT4NhH8/AdQVac3CH/8zNys9SO5CqlJXm0unUPxda4d2UQlTX2U/QmoHxx28XRF0/sT1RvAydZFpGFvvhqbf+yaRDSIg+0Lna/1WwjLvMdMhHsFTMy8UxMDU8+aCU8CiwsLpB2dVM0vKYsyJ2zdsFrWuwbhgZ4ifLplJ6S0vMQ2h7Rf76YYwZLaxGtsxjQDa50SseH6auD+S5ofaRpMCScaRsly1BDf+LYGF6V5wJ8wmFWQDHMh3viAhgxwJRJPSivPeqQtknoNrf3zkIz8SGh3dFL+LKe1b7e/LouxLtG+CpnVKJ7s0QIDAQAB",
+  "manifest_version": 3,
+  "minimum_chrome_version": "116",
+  "name": "Mendo GPT",
+  "optional_permissions": [],
+  "permissions": [
+    "activeTab",
+    "storage",
+    "sidePanel",
+    "background",
+    "notifications",
+    "alarms",
+    "windows",
+    "contextMenus"
+  ],
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "version": "1.4.30",
+  "web_accessible_resources": [
+    {
+      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
+      "resources": [
+        "assets/*.png",
+        "content.js",
+        "frame.html",
+        "frame_relay.js"
+      ]
+    },
+    {
+      "matches": ["\u003Call_urls>"],
+      "resources": ["assets/sounds/*.mp3"]
+    }
+  ]
+}
