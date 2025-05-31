@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DEPLOYED_SHA: ${{ github.event.client_payload.deployed_sha }}
+      APP_PIPELINE_URL: ${{ github.event.client_payload.app_pipeline_url }}
 
     steps:
       - name: Checkout code
@@ -31,15 +32,15 @@ jobs:
 
       - name: Run Playwright tests
         run: xvfb-run --auto-servernum npx playwright test --reporter=html
-              
+
+      - name: Save deployed SHA info
+        run: |
+          echo "Deployed SHA: $DEPLOYED_SHA" > playwright-report/deploy-info.txt
+          echo "App pipeline URL: $APP_PIPELINE_URL" >> playwright-report/deploy-info.txt
+
       - name: Upload Playwright HTML report
         if: always()
         uses: actions/upload-artifact@v4.6.2
         with:
           name: playwright-report
           path: playwright-report/
-      
-      - name: Save deployed SHA info
-        run: echo $DEPLOYED_SHA > playwright-report/deploy-sha.txt
-        env:
-          DEPLOYED_SHA: ${{ github.sha }}
