@@ -4,6 +4,6 @@ module.exports = {
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     screenshot: 'only-on-failure',
-    headless: true,
+    headless: false,
   },
 };
