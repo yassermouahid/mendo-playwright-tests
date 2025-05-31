@@ -5,7 +5,7 @@ const input_data = require('../input_data/mendo-home-page');
 const path = require('path');
 
 const EXTENSION_PATH = path.resolve(process.cwd(), 'mendo_extension');
-const deployedSHA = process.env.DEPLOYED_SHA || 'unknown';
+// const deployedSHA = process.env.DEPLOYED_SHA || 'unknown';
 
 test.describe('Mendo Home Page', () => {
   test.afterEach(async ({ page }, testInfo) => {
@@ -15,7 +15,7 @@ test.describe('Mendo Home Page', () => {
   });
 
   test('should display welcome text and buttons correctly', async ({}, testInfo) => {
-    console.log(`ℹ️ Running tests against deployed commit SHA: ${deployedSHA}`);
+    // console.log(`ℹ️ Running tests against deployed commit SHA: ${deployedSHA}`);
 
     // Attach deployed SHA to the Playwright report for this test
     await testInfo.attach('Deployment SHA', {

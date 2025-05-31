@@ -4,7 +4,9 @@ on:
   repository_dispatch:
     types: [run-tests]
   push:
-    branches: ['*']
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   test:
@@ -33,18 +35,9 @@ jobs:
 
       - name: Save deployment metadata
         run: |
-          if [ -n "$DEPLOYED_SHA" ]; then
-            echo "Application project deployed SHA: $DEPLOYED_SHA" > playwright-report/deploy-info.txt
-          else
-            echo "Application project deployed SHA not provided" > playwright-report/deploy-info.txt
-          fi
+          echo "Application project deployed SHA" > playwright-report/deploy-info.txt
+          echo "Application project pipeline URL: $APP_PIPELINE_URL" >> playwright-report/deploy-info.txt
           
-          if [ -n "$APP_PIPELINE_URL" ]; then
-            echo "Application project pipeline URL: $APP_PIPELINE_URL" >> playwright-report/deploy-info.txt
-          else
-            echo "Application project pipeline URL not provided" >> playwright-report/deploy-info.txt
-          fi
-
       - name: Upload Playwright HTML report
         if: always()
         uses: actions/upload-artifact@v4.6.2
