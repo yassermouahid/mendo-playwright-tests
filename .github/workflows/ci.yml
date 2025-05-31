@@ -38,3 +38,8 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
+      
+      - name: Save deployed SHA info
+        run: echo $DEPLOYED_SHA > playwright-report/deploy-sha.txt
+        env:
+          DEPLOYED_SHA: ${{ github.sha }}
