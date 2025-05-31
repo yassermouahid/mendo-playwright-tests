@@ -11,6 +11,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DEPLOYED_SHA: ${{ github.event.client_payload.deployed_sha }}
 
     steps:
       - name: Checkout code
