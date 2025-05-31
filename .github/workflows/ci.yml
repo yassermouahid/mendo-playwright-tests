@@ -4,9 +4,7 @@ on:
   repository_dispatch:
     types: [run-tests]
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches: ['*']
 
 jobs:
   test:
@@ -33,10 +31,19 @@ jobs:
       - name: Run Playwright tests
         run: xvfb-run --auto-servernum npx playwright test --reporter=html
 
-      - name: Save deployed SHA info
+      - name: Save deployment metadata
         run: |
-          echo "Deployed SHA: $DEPLOYED_SHA" > playwright-report/deploy-info.txt
-          echo "App pipeline URL: $APP_PIPELINE_URL" >> playwright-report/deploy-info.txt
+          if [ -n "$DEPLOYED_SHA" ]; then
+            echo "Application project deployed SHA: $DEPLOYED_SHA" > playwright-report/deploy-info.txt
+          else
+            echo "Application project deployed SHA not provided" > playwright-report/deploy-info.txt
+          fi
+          
+          if [ -n "$APP_PIPELINE_URL" ]; then
+            echo "Application project pipeline URL: $APP_PIPELINE_URL" >> playwright-report/deploy-info.txt
+          else
+            echo "Application project pipeline URL not provided" >> playwright-report/deploy-info.txt
+          fi
 
       - name: Upload Playwright HTML report
         if: always()
