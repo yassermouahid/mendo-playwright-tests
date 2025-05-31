@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -39,19 +40,13 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
-      
+
       - name: Run Playwright tests
         run: xvfb-run --auto-servernum npx playwright test --reporter=html
-
-      # - name: Upload Playwright Report
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: playwright-report
-      #     path: playwright-report/
-
-      # - name: Upload screenshots on failure
-      #   if: failure()
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: screenshots
-      #     path: test-results/**/*.png
+              
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v3.1.3
+        with:
+          name: playwright-report
+          path: playwright-report/
