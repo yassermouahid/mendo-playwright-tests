@@ -1,6 +1,8 @@
 name: Playwright Tests
 
 on:
+  repository_dispatch:
+    types: [run-tests]
   push:
     branches: [main]
   pull_request:
