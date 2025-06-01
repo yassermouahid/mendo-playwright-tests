@@ -62,6 +62,8 @@ test.describe('Mendo Home Page', () => {
 
       const emailInput = frame.locator(locators.email_input);
       await emailInput.fill(input_data.user_email);
+      console.log('✓ Email inserted');
+
     } catch (error) {
       console.error('Test error:', error);
       throw error; 
