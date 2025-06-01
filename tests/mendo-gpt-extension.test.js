@@ -15,13 +15,13 @@ test.describe('Mendo Home Page', () => {
   });
 
   test('should display welcome text and buttons correctly', async ({}, testInfo) => {
-    // console.log(`ℹ️ Running tests against deployed commit SHA: ${deployedSHA}`);
+    // console.log(`Running tests against deployed commit SHA: ${deployedSHA}`);
 
-    // Attach deployed SHA to the Playwright report for this test
-    await testInfo.attach('Deployment SHA', {
-      body: deployedSHA,
-      contentType: 'text/plain',
-    });
+    // Attach deployed SHA to the Playwright report
+    // await testInfo.attach('Deployment SHA', {
+    //   body: deployedSHA,
+    //   contentType: 'text/plain',
+    // });
 
     const context = await chromium.launchPersistentContext('', {
       headless: false,
